@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Cricket Match Tracker</h1>
+        <div class="filters">
+            <select id="countryFilter">
+                <option value="all">All Countries</option>
+                <option value="India">India</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Australia">Australia</option>
+                <option value="England">England</option>
+                <option value="South Africa">South Africa</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="West Indies">West Indies</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+                <option value="Afghanistan">Afghanistan</option>
+            </select>
+            <select id="tournamentFilter">
+                <option value="all">All Tournaments</option>
+                <option value="T20 World Cup">T20 World Cup</option>
+                <option value="ICC Cricket World Cup">ICC Cricket World Cup</option>
+                <option value="Asia Cup">Asia Cup</option>
+                <option value="World Test Championship">World Test Championship</option>
+                <option value="IPL">IPL</option>
+                <option value="Big Bash League">Big Bash League</option>
+                <option value="English County Championship">English County Championship</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <section id="liveMatches" class="matches-section">
+            <h2>Live Matches</h2>
+            <div id="liveContainer" class="matches-container"></div>
+        </section>
+
+        <section id="upcomingMatches" class="matches-section">
+            <h2>Upcoming Matches</h2>
+            <div id="upcomingContainer" class="matches-container"></div>
+        </section>
+
+        <section id="ongoingTournaments" class="tournaments-section">
+            <h2>Ongoing Tournaments</h2>
+            <div id="tournamentsContainer" class="tournaments-container"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
