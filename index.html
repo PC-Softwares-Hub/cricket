@@ -140,64 +140,14 @@
         <section id="liveVideoStream" class="matches-section">
             <h2>📺 Watch Live Cricket</h2>
             <div style="margin-bottom:15px;text-align:center;color:#aaa;">
-                <p>Click buttons below to watch live cricket inline (staying on this site)</p>
+                <p>Click button below to watch live cricket on CricketHD</p>
             </div>
             <div class="stream-links">
-                <button onclick="loadStream('crichd')">CricHD</button>
-                <button onclick="loadStream('streamsdesh')">StreamsDesh</button>
-                <button onclick="loadStream('freeshot')">FreeShot</button>
-                <button onclick="loadStream('freecric')">FreeCric</button>
-                <button onclick="loadStream('t20sports')">T20 Sports</button>
-            </div>
-            <div id="playerContainer" style="margin-top:20px;height:550px;background:#000;border-radius:10px;overflow:hidden;position:relative;display:none">
-                <iframe id="streamFrame" width="100%" height="100%" frameborder="0" allowfullscreen style="display:block;"></iframe>
-                <div id="errorMsg" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;text-align:center;display:none;padding:20px;background:rgba(0,0,0,0.8);border-radius:10px;">
-                    <p style="font-size:1.2rem;margin-bottom:10px;">⚠️ Stream unavailable</p>
-                    <p style="font-size:0.9rem;margin-bottom:15px;">This source may be blocked or geo-restricted.</p>
-                    <button onclick="tryExternal()" style="padding:10px 20px;background:#f8d847;color:#000;border:none;border-radius:5px;cursor:pointer;">
-                        Try External Link
-                    </button>
-                </div>
+                <a href="https://crickhd.com" target="_self" style="display:inline-block;background:#ff4757;color:#fff;padding:15px 30px;border-radius:25px;text-decoration:none;font-weight:bold;">
+                    ▶ Watch Live Cricket HD
+                </a>
             </div>
         </section>
-
-        <script>
-        const streamSources = {
-            crichd: 'https://crichd.com/embed/cricket',
-            streamsdesh: 'https://streamsdesh.com/embed/cricket',
-            freeshot: 'https://freeshot.live/embed/cricket',
-            freecric: 'https://freecric.tv/embed/live',
-            t20sports: 'https://t20sports.net/embed/live'
-        };
-        let currentSource = '';
-        
-        function loadStream(source) {
-            const frame = document.getElementById('streamFrame');
-            const container = document.getElementById('playerContainer');
-            const errorMsg = document.getElementById('errorMsg');
-            
-            currentSource = source;
-            container.style.display = 'block';
-            errorMsg.style.display = 'none';
-            frame.src = streamSources[source];
-            
-            frame.onload = function() {
-                setTimeout(() => {
-                    try {
-                        if (!frame.contentDocument || !frame.contentDocument.body.innerHTML) {
-                            errorMsg.style.display = 'block';
-                        }
-                    } catch(e) {
-                        errorMsg.style.display = 'block';
-                    }
-                }, 2000);
-            };
-        }
-        
-        function tryExternal() {
-            window.open(streamSources[currentSource], '_blank');
-        }
-        </script>
     </main>
 
     <script src="script.js"></script>
