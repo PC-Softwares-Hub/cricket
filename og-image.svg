@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f3460"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="600" y="250" font-family="Arial" font-size="80" font-weight="bold" fill="#e94560" text-anchor="middle">Cricket</text>
+  <text x="600" y="350" font-family="Arial" font-size="60" fill="#f8d847" text-anchor="middle">Match Tracker</text>
+  <text x="600" y="450" font-family="Arial" font-size="30" fill="#fff" text-anchor="middle">Live Scores | Schedules | Player Stats</text>
+</svg>
