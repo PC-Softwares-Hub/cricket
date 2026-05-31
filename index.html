@@ -138,27 +138,16 @@
         </section>
 
         <section id="liveVideoStream" class="matches-section">
-            <h2>📺 Live Cricket Streams</h2>
+            <h2>📺 Watch Live Cricket</h2>
             <div class="stream-links">
-                <button onclick="loadStream('https://crichd.st/embed/willow')">Willow TV</button>
-                <button onclick="loadStream('https://crichd.st/embed/star1')">Star Sports</button>
-                <button onclick="loadStream('https://crichd.st/embed/skysports')">Sky Sports</button>
-                <button onclick="loadStream('https://crichd.st/embed/main')">Main Stream</button>
-                <button onclick="window.open('https://www.espncricinfo.com','_blank')">ESPNCricinfo</button>
+                <a href="https://www.espncricinfo.com/live-scores" target="_blank" class="stream-link">🔴 Live Scores</a>
+                <a href="https://www.cricbuzz.com/cricket-live-scores" target="_blank" class="stream-link">📈 Cricbuzz Live</a>
+                <a href="https://www.hotstar.com" target="_blank" class="stream-link">🔴 Hotstar (India)</a>
+                <a href="https://www.sonyliv.com" target="_blank" class="stream-link">🔴 SonyLIV</a>
+                <a href="https://www.espncricinfo.com" target="_blank" class="stream-link">📊 ESPNCricinfo</a>
             </div>
-            <div id="playerContainer" style="margin-top:20px;height:500px;background:#000;border-radius:10px;overflow:hidden;display:none;">
-                <iframe id="streamFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-            </div>
+            <p style="text-align:center;color:#aaa;margin-top:15px;font-size:0.9rem;">Click any link to watch live cricket on official platforms (opens in new tab)</p>
         </section>
-
-        <script>
-        function loadStream(url) {
-            const frame = document.getElementById('streamFrame');
-            const container = document.getElementById('playerContainer');
-            container.style.display = 'block';
-            frame.src = url;
-        }
-        </script>
     </main>
 
     <script src="script.js"></script>
