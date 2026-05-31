@@ -1,4 +1,4 @@
-const liveMatches = [
+let liveMatches = [
     {
         id: 1,
         teamA: "India",
@@ -20,6 +20,12 @@ const liveMatches = [
         result: "Australia chasing 180"
     }
 ];
+
+const FREE_APIS = {
+    sportsrc: 'https://api.sportsrc.org/cricket/schedule',
+    embedsportex: 'https://api.embedsportex.site/api',
+    venuevault: 'https://venuevault.live/api/schedule/live'
+};
 
 const upcomingMatches = [
     {
@@ -96,31 +102,143 @@ function formatDate(dateStr) {
     return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
+async function fetchLiveMatchesFromAPI() {
+    try {
+        const response = await fetch(FREE_APIS.sportsrc);
+        const data = await response.json();
+        if (data.matches && data.matches.length > 0) {
+            return data.matches.map(m => ({
+                id: m.id || Date.now(),
+                teamA: m.homeTeam || m.teamA,
+                teamB: m.awayTeam || m.teamB,
+                tournament: m.league || m.tournament || 'International',
+                status: 'live',
+                score: m.score || m.result || 'Live',
+                overs: m.time || '',
+                result: m.status || ''
+            }));
+        }
+    } catch (e) {}
+    try {
+        const response = await fetch(FREE_APIS.embedsportex);
+        const data = await response.json();
+        if (data.matches && data.matches.length > 0) {
+            return data.matches.map(m => ({
+                id: m.id || Date.now(),
+                teamA: m.homeTeam,
+                teamB: m.awayTeam,
+                tournament: m.league,
+                status: 'live',
+                score: m.score,
+                overs: m.time || '',
+                result: m.status || ''
+            }));
+        }
+    } catch (e) {}
+    return [];
+}
+
+function renderStreamingOptions() {
+    const streamingSection = document.getElementById('streamingSection');
+    if (streamingSection) {
+        streamingSection.style.display = 'block';
+    }
+}
+
+function renderLiveStreams() {
+    const container = document.getElementById('streamingContainer');
+    if (!container) return;
+    
+    container.innerHTML = `
+        <div class="match-card live">
+            <div class="live-match-header">
+                <span class="tournament-name">Free Streams</span>
+                <div class="live-indicator">LIVE</div>
+            </div>
+            <div class="teams">
+                <div class="team">
+                    <span class="team-name">YouTube Sports</span>
+                </div>
+                <span class="vs">▶</span>
+                <div class="team">
+                    <span class="team-name">Watch Now</span>
+                </div>
+            </div>
+            <div class="match-result">
+                <a href="https://www.youtube.com/@CricketGateway" target="_blank" style="color:#ff4757;font-weight:bold;">Watch Free ▶</a>
+            </div>
+        </div>
+        <div class="match-card live">
+            <div class="live-match-header">
+                <span class="tournament-name">Cricbuzz TV</span>
+                <div class="live-indicator">LIVE</div>
+            </div>
+            <div class="teams">
+                <div class="team">
+                    <span class="team-name">Free Highlights</span>
+                </div>
+                <span class="vs">▶</span>
+                <div class="team">
+                    <span class="team-name">Cricbuzz</span>
+                </div>
+            </div>
+            <div class="match-result">
+                <a href="https://www.cricbuzz.com" target="_blank" style="color:#2ed573;font-weight:bold;">Visit Site ▶</a>
+            </div>
+        </div>
+        <div class="match-card live">
+            <div class="live-match-header">
+                <span class="tournament-name">ESPNCricinfo</span>
+                <div class="live-indicator">LIVE</div>
+            </div>
+            <div class="teams">
+                <div class="team">
+                    <span class="team-name">Official Source</span>
+                </div>
+                <span class="vs">▶</span>
+                <div class="team">
+                    <span class="team-name">Watch Now</span>
+                </div>
+            </div>
+            <div class="match-result">
+                <a href="https://www.espncricinfo.com" target="_blank" style="color:#2ed573;font-weight:bold;">Watch Free ▶</a>
+            </div>
+        </div>
+    `;
+}
+
+async function updateLiveMatches() {
+    const apiMatches = await fetchLiveMatchesFromAPI();
+    if (apiMatches.length > 0) {
+        liveMatches = apiMatches;
+    }
+}
+
 function renderMatches() {
     const liveContainer = document.getElementById('liveContainer');
     const upcomingContainer = document.getElementById('upcomingContainer');
     
     liveContainer.innerHTML = liveMatches.map(match => `
         <div class="match-card live">
-            <div class="match-header">
+            <div class="live-match-header">
                 <span class="tournament-name">${match.tournament}</span>
-                <span class="match-time">${match.overs}</span>
+                <div class="live-indicator">LIVE</div>
             </div>
             <div class="teams">
                 <div class="team">
-                    <img class="team-logo" src="${countryFlags[match.teamA] || ''}" alt="${match.teamA}">
+                    <img class="team-logo" src="${countryFlags[match.teamA] || 'https://via.placeholder.com/40'}" alt="${match.teamA}">
                     <span class="team-name">${match.teamA}</span>
                 </div>
                 <span class="vs">VS</span>
                 <div class="team">
-                    <img class="team-logo" src="${countryFlags[match.teamB] || ''}" alt="${match.teamB}">
+                    <img class="team-logo" src="${countryFlags[match.teamB] || 'https://via.placeholder.com/40'}" alt="${match.teamB}">
                     <span class="team-name">${match.teamB}</span>
                 </div>
             </div>
             <div class="match-result">
                 <span class="live-badge">LIVE</span><br>
                 ${match.score}<br>
-                ${match.result}
+                ${match.overs}
             </div>
         </div>
     `).join('');
@@ -190,25 +308,25 @@ function filterMatches() {
     } else {
         liveContainer.innerHTML = filteredLive.map(match => `
             <div class="match-card live">
-                <div class="match-header">
+                <div class="live-match-header">
                     <span class="tournament-name">${match.tournament}</span>
-                    <span class="match-time">${match.overs}</span>
+                    <div class="live-indicator">LIVE</div>
                 </div>
                 <div class="teams">
                     <div class="team">
-                        <img class="team-logo" src="${countryFlags[match.teamA] || ''}" alt="${match.teamA}">
+                        <img class="team-logo" src="${countryFlags[match.teamA] || 'https://via.placeholder.com/40'}" alt="${match.teamA}">
                         <span class="team-name">${match.teamA}</span>
                     </div>
                     <span class="vs">VS</span>
                     <div class="team">
-                        <img class="team-logo" src="${countryFlags[match.teamB] || ''}" alt="${match.teamB}">
+                        <img class="team-logo" src="${countryFlags[match.teamB] || 'https://via.placeholder.com/40'}" alt="${match.teamB}">
                         <span class="team-name">${match.teamB}</span>
                     </div>
                 </div>
                 <div class="match-result">
                     <span class="live-badge">LIVE</span><br>
                     ${match.score}<br>
-                    ${match.result}
+                    ${match.overs}
                 </div>
             </div>
         `).join('');
@@ -244,3 +362,7 @@ document.getElementById('tournamentFilter').addEventListener('change', filterMat
 
 renderMatches();
 renderTournaments();
+renderStreamingOptions();
+renderLiveStreams();
+updateLiveMatches();
+setInterval(updateLiveMatches, 60000);

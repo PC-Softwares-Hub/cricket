@@ -160,7 +160,40 @@ main {
     padding: 3px 10px;
     border-radius: 15px;
     font-size: 0.8rem;
-    animation: pulse 2s infinite;
+    animation: pulse 1.5s infinite;
+    font-weight: bold;
+}
+
+.live-match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #ff4757;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.live-indicator::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 @keyframes pulse {
@@ -197,6 +230,30 @@ main {
     padding: 40px;
     color: #aaa;
     font-size: 1.1rem;
+}
+
+.stream-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.stream-link {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 12px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stream-link:hover {
+    background: #f8d847;
+    color: #000;
+    transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
