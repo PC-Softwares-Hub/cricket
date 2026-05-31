@@ -138,16 +138,37 @@
         </section>
 
         <section id="liveVideoStream" class="matches-section">
-            <h2>📺 Watch Live Cricket</h2>
-            <div class="stream-links">
-                <a href="https://www.espncricinfo.com/live-scores" target="_blank" class="stream-link">🔴 Live Scores</a>
-                <a href="https://www.cricbuzz.com/cricket-live-scores" target="_blank" class="stream-link">📈 Cricbuzz Live</a>
-                <a href="https://www.hotstar.com" target="_blank" class="stream-link">🔴 Hotstar (India)</a>
-                <a href="https://www.sonyliv.com" target="_blank" class="stream-link">🔴 SonyLIV</a>
-                <a href="https://www.espncricinfo.com" target="_blank" class="stream-link">📊 ESPNCricinfo</a>
+            <h2>📺 Live Cricket Streams</h2>
+            <div style="margin-bottom:15px;text-align:center;color:#aaa;">
+                <p>Click any button to load stream in the player below</p>
             </div>
-            <p style="text-align:center;color:#aaa;margin-top:15px;font-size:0.9rem;">Click any link to watch live cricket on official platforms (opens in new tab)</p>
+            <div class="stream-links">
+                <button onclick="loadStream('https://app.crichd.com/embed/cricket')">Live Match</button>
+                <button onclick="loadStream('https://app.crichd.com/embed/ipl')">IPL</button>
+                <button onclick="loadStream('https://app.crichd.com/embed/willow')">Willow TV</button>
+                <button onclick="loadStream('https://app.crichd.com/embed/star')">Star Sports</button>
+                <button onclick="loadStream('https://app.crichd.com/embed/tv')">TV Mode</button>
+            </div>
+            <div id="playerContainer" style="margin-top:20px;height:550px;background:#000;border-radius:10px;overflow:hidden;position:relative">
+                <iframe id="streamFrame" width="100%" height="100%" frameborder="0" allowfullscreen style="display:block;"></iframe>
+                <div id="loadingMsg" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;text-align:center;display:none;">
+                    <p>Loading stream...</p>
+                    <p style="font-size:0.8rem;color:#aaa;margin-top:10px;">If stream doesn't load, try another button</p>
+                </div>
+            </div>
         </section>
+
+        <script>
+        function loadStream(url) {
+            const frame = document.getElementById('streamFrame');
+            const container = document.getElementById('playerContainer');
+            const loading = document.getElementById('loadingMsg');
+            container.style.display = 'block';
+            loading.style.display = 'block';
+            frame.src = url;
+            setTimeout(() => { loading.style.display = 'none'; }, 3000);
+        }
+        </script>
     </main>
 
     <script src="script.js"></script>
