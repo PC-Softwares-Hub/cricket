@@ -140,39 +140,24 @@
         <section id="liveVideoStream" class="matches-section">
             <h2>📺 Watch Live Cricket</h2>
             <div style="margin-bottom:15px;text-align:center;color:#aaa;">
-                <p>Click button to watch live cricket streams</p>
+                <p>Click button to load stream on this page</p>
             </div>
             <div class="stream-links">
-                <button onclick="openPopup()" style="background:#ff4757;color:#fff;padding:15px 30px;border-radius:25px;border:none;font-size:1rem;cursor:pointer;">
+                <button onclick="loadCrickHD()" style="background:#ff4757;color:#fff;padding:15px 30px;border-radius:25px;border:none;font-size:1rem;cursor:pointer;">
                     ▶ Watch Live Cricket HD
                 </button>
             </div>
+            <div id="playerWrapper" style="margin-top:20px;height:550px;background:#000;border-radius:10px;overflow:hidden;display:none;">
+                <iframe id="crickHDFrame" width="100%" height="100%" frameborder="0" allowfullscreen style="display:block;"></iframe>
+            </div>
         </section>
 
-        <div id="popupWindow" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;">
-            <div style="background:#000;border-radius:10px;width:90vw;height:90vh;position:relative;padding:20px;overflow:hidden;">
-                <button onclick="closePopup()" style="position:absolute;top:10px;right:10px;background:#f8d847;color:#000;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:20px;font-weight:bold;z-index:10;">×</button>
-                <div id="popupContent" style="width:100%;height:calc(100% - 40px);display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;">
-                    <div>
-                        <h3 style="color:#f8d847;margin-bottom:20px;">⚠️ Stream Blocked</h3>
-                        <p style="margin-bottom:15px;">This streaming site blocks iframe embedding for copyright protection.</p>
-                        <p style="margin-bottom:20px;">Please use the official links below to watch live cricket:</p>
-                        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
-                            <a href="https://www.hotstar.com" target="_blank" style="background:#ff4757;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;margin:5px;">Hotstar</a>
-                            <a href="https://www.sonyliv.com" target="_blank" style="background:#ff4757;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;margin:5px;">SonyLIV</a>
-                            <a href="https://www.espncricinfo.com" target="_blank" style="background:#ff4757;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;margin:5px;">ESPNCricinfo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <script>
-        function openPopup() {
-            document.getElementById('popupWindow').style.display = 'flex';
-        }
-        function closePopup() {
-            document.getElementById('popupWindow').style.display = 'none';
+        function loadCrickHD() {
+            const wrapper = document.getElementById('playerWrapper');
+            const frame = document.getElementById('crickHDFrame');
+            wrapper.style.display = 'block';
+            frame.src = 'https://app.crichd.com/';
         }
         </script>
     </main>
