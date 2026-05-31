@@ -135,83 +135,7 @@ async function fetchLiveMatchesFromAPI() {
             }));
         }
     } catch (e) {}
-    return [];
-}
-
-function renderStreamingOptions() {
-    const streamingSection = document.getElementById('streamingSection');
-    if (streamingSection) {
-        streamingSection.style.display = 'block';
-    }
-}
-
-function renderLiveStreams() {
-    const container = document.getElementById('streamingContainer');
-    if (!container) return;
-    
-    container.innerHTML = `
-        <div class="match-card live">
-            <div class="live-match-header">
-                <span class="tournament-name">Free Streams</span>
-                <div class="live-indicator">LIVE</div>
-            </div>
-            <div class="teams">
-                <div class="team">
-                    <span class="team-name">YouTube Sports</span>
-                </div>
-                <span class="vs">▶</span>
-                <div class="team">
-                    <span class="team-name">Watch Now</span>
-                </div>
-            </div>
-            <div class="match-result">
-                <a href="https://www.youtube.com/@CricketGateway" target="_blank" style="color:#ff4757;font-weight:bold;">Watch Free ▶</a>
-            </div>
-        </div>
-        <div class="match-card live">
-            <div class="live-match-header">
-                <span class="tournament-name">Cricbuzz TV</span>
-                <div class="live-indicator">LIVE</div>
-            </div>
-            <div class="teams">
-                <div class="team">
-                    <span class="team-name">Free Highlights</span>
-                </div>
-                <span class="vs">▶</span>
-                <div class="team">
-                    <span class="team-name">Cricbuzz</span>
-                </div>
-            </div>
-            <div class="match-result">
-                <a href="https://www.cricbuzz.com" target="_blank" style="color:#2ed573;font-weight:bold;">Visit Site ▶</a>
-            </div>
-        </div>
-        <div class="match-card live">
-            <div class="live-match-header">
-                <span class="tournament-name">ESPNCricinfo</span>
-                <div class="live-indicator">LIVE</div>
-            </div>
-            <div class="teams">
-                <div class="team">
-                    <span class="team-name">Official Source</span>
-                </div>
-                <span class="vs">▶</span>
-                <div class="team">
-                    <span class="team-name">Watch Now</span>
-                </div>
-            </div>
-            <div class="match-result">
-                <a href="https://www.espncricinfo.com" target="_blank" style="color:#2ed573;font-weight:bold;">Watch Free ▶</a>
-            </div>
-        </div>
-    `;
-}
-
-async function updateLiveMatches() {
-    const apiMatches = await fetchLiveMatchesFromAPI();
-    if (apiMatches.length > 0) {
-        liveMatches = apiMatches;
-    }
+return [];
 }
 
 function renderMatches() {
@@ -362,7 +286,5 @@ document.getElementById('tournamentFilter').addEventListener('change', filterMat
 
 renderMatches();
 renderTournaments();
-renderStreamingOptions();
-renderLiveStreams();
 updateLiveMatches();
 setInterval(updateLiveMatches, 60000);
