@@ -248,6 +248,9 @@ main {
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    margin: 5px;
 }
 
 .stream-link:hover {
