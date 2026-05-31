@@ -140,14 +140,32 @@
         <section id="liveVideoStream" class="matches-section">
             <h2>📺 Watch Live Cricket</h2>
             <div style="margin-bottom:15px;text-align:center;color:#aaa;">
-                <p>Click button below to watch live cricket on CricketHD</p>
+                <p>Click button to watch live cricket in popup window</p>
             </div>
             <div class="stream-links">
-                <a href="https://crickhd.com" target="_self" style="display:inline-block;background:#ff4757;color:#fff;padding:15px 30px;border-radius:25px;text-decoration:none;font-weight:bold;">
+                <button onclick="openPopup()" style="background:#ff4757;color:#fff;padding:15px 30px;border-radius:25px;border:none;font-size:1rem;cursor:pointer;">
                     ▶ Watch Live Cricket HD
-                </a>
+                </button>
             </div>
         </section>
+
+        <div id="popupWindow" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;">
+            <div style="background:#000;border-radius:10px;width:90vw;height:90vh;position:relative;">
+                <button onclick="closePopup()" style="position:absolute;top:-40px;right:0;background:#f8d847;color:#000;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:20px;font-weight:bold;">×</button>
+                <iframe src="" id="popupFrame" width="100%" height="100%" frameborder="0" allowfullscreen style="border-radius:10px;"></iframe>
+            </div>
+        </div>
+
+        <script>
+        function openPopup() {
+            document.getElementById('popupWindow').style.display = 'flex';
+            document.getElementById('popupFrame').src = 'https://crickhd.com';
+        }
+        function closePopup() {
+            document.getElementById('popupWindow').style.display = 'none';
+            document.getElementById('popupFrame').src = '';
+        }
+        </script>
     </main>
 
     <script src="script.js"></script>
