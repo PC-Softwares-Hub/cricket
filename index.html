@@ -140,55 +140,23 @@
         <section id="liveVideoStream" class="matches-section">
             <h2>📺 Live Cricket Streams</h2>
             <div class="stream-links">
-                <button onclick="playStream('willow')" class="stream-link">Willow TV (English)</button>
-                <button onclick="playStream('willow2')" class="stream-link">Willow 2 (Hindi)</button>
-                <button onclick="playStream('willowhd')" class="stream-link">Willow HD (English)</button>
-                <button onclick="playStream('star1')" class="stream-link">Star Sports 1 (English)</button>
-                <button onclick="playStream('starhindi')" class="stream-link">Star Sports 1 (Hindi)</button>
-                <button onclick="playStream('skysports')" class="stream-link">Sky Sports Cricket</button>
-                <button onclick="playStream('startamil')" class="stream-link">Star Sports 1 (Tamil)</button>
-                <button onclick="playStream('startelugu')" class="stream-link">Star Sports 1 (Telugu)</button>
+                <button onclick="loadStream('https://crichd.st/embed/willow')">Willow TV</button>
+                <button onclick="loadStream('https://crichd.st/embed/star1')">Star Sports</button>
+                <button onclick="loadStream('https://crichd.st/embed/skysports')">Sky Sports</button>
+                <button onclick="loadStream('https://crichd.st/embed/main')">Main Stream</button>
+                <button onclick="window.open('https://www.espncricinfo.com','_blank')">ESPNCricinfo</button>
             </div>
-            <div id="videoPlayer" style="margin-top:20px;text-align:center;display:none;">
-                <iframe id="streamIframe" width="100%" height="500" style="border-radius:10px;border:none;" allowfullscreen></iframe>
-                <p id="streamTitle" style="color:#f8d847;margin-top:10px;"></p>
+            <div id="playerContainer" style="margin-top:20px;height:500px;background:#000;border-radius:10px;overflow:hidden;display:none;">
+                <iframe id="streamFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
 
         <script>
-        function playStream(channel) {
-            const video = document.getElementById('streamVideo');
-            const source = document.getElementById('videoSource');
-            const player = document.getElementById('videoPlayer');
-            const title = document.getElementById('streamTitle');
-            
-            const streams = {
-                willow: { url: 'https://crichd.st/player.php?id=willow', name: 'Willow TV (English)' },
-                willow2: { url: 'https://crichd.st/player.php?id=willow2', name: 'Willow 2 (Hindi)' },
-                willowhd: { url: 'https://crichd.st/player.php?id=willowhd', name: 'Willow HD (English)' },
-                star1: { url: 'https://crichd.st/player.php?id=star1', name: 'Star Sports 1 (English)' },
-                starhindi: { url: 'https://crichd.st/player.php?id=starhindi', name: 'Star Sports 1 (Hindi)' },
-                skysports: { url: 'https://crichd.st/player.php?id=skysports', name: 'Sky Sports Cricket' },
-                startamil: { url: 'https://crichd.st/player.php?id=startamil', name: 'Star Sports 1 (Tamil)' },
-                startelugu: { url: 'https://crichd.st/player.php?id=startelugu', name: 'Star Sports 1 (Telugu)' }
-            };
-            
-            if (streams[channel]) {
-                const playerUrl = streams[channel].url;
-                title.textContent = streams[channel].name + ' - Loading...';
-                player.style.display = 'block';
-                
-                var iframe = document.createElement('iframe');
-                iframe.src = playerUrl;
-                iframe.width = '100%';
-                iframe.height = '500';
-                iframe.style.borderRadius = '10px';
-                iframe.allowFullscreen = true;
-                
-                video.style.display = 'none';
-                document.getElementById('videoPlayer').innerHTML = '';
-                document.getElementById('videoPlayer').appendChild(iframe);
-            }
+        function loadStream(url) {
+            const frame = document.getElementById('streamFrame');
+            const container = document.getElementById('playerContainer');
+            container.style.display = 'block';
+            frame.src = url;
         }
         </script>
     </main>
